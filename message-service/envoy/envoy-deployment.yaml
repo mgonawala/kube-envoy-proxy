@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoy-message
+  labels:
+    app: envoy-message
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: envoy-message
+  template:
+    metadata:
+      labels:
+        app: envoy-message
+    spec:
+      containers:
+      - name: envoy-proxy
+        image: mohinigonawala90/envoy-message
+        ports:
+        - containerPort: 10000
+      - name: message-service
+        image: mohinigonawala90/message
+        ports:
+        - containerPort: 8080
+

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: envoy-service
+  labels:
+    app: envoy-proxy
+spec:
+  type: NodePort
+  ports:
+  - port: 10000
+    targetPort: 10000
+    nodePort: 30080
+  selector:
+    app: envoy-proxy
+
