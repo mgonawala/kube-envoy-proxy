@@ -24,23 +24,59 @@ static_resources:
             - name: local_service
               domains: ["*"]
               routes:
+              # - match:
+              #     prefix: "/user"
+              #   route:
+              #     host_rewrite_literal: www.envoyproxy.io
+              #     cluster: service_envoyproxy_io
+              # - match:
+              #     prefix: "/message"
+              #   route:
+              #     host_rewrite_literal: www.envoyproxy.io
+              #     cluster: service_message
               - match:
-                  prefix: "/user"
+                  prefix: "/customers"
                 route:
                   host_rewrite_literal: www.envoyproxy.io
-                  cluster: service_envoyproxy_io
+                  cluster: service_customer
 
   clusters:
-  - name: service_envoyproxy_io
+  # - name: service_message
+  #   type: LOGICAL_DNS
+  #   # Comment out the following line to test on v6 networks
+  #   dns_lookup_family: V4_ONLY
+  #   load_assignment:
+  #     cluster_name: service_message
+  #     endpoints:
+  #     - lb_endpoints:
+  #       - endpoint:
+  #           address:
+  #             socket_address:
+  #               address: envoy-message-proxy
+  #               port_value: 10000
+  # - name: service_envoyproxy_io
+  #   type: LOGICAL_DNS
+  #   # Comment out the following line to test on v6 networks
+  #   dns_lookup_family: V4_ONLY
+  #   load_assignment:
+  #     cluster_name: service_envoyproxy_io
+  #     endpoints:
+  #     - lb_endpoints:
+  #       - endpoint:
+  #           address:
+  #             socket_address:
+  #               address: envoy-user-proxy
+  #               port_value: 10000
+  - name: service_customer
     type: LOGICAL_DNS
     # Comment out the following line to test on v6 networks
     dns_lookup_family: V4_ONLY
     load_assignment:
-      cluster_name: service_envoyproxy_io
+      cluster_name: service_customer
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: envoy-user-proxy
+                address: envoy-customer-proxy
                 port_value: 10000

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoy-customer
+  labels:
+    app: envoy-customer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: envoy-customer
+  template:
+    metadata:
+      labels:
+        app: envoy-customer
+    spec:
+      containers:
+      - name: envoy-proxy
+        image: mohinigonawala90/envoy-customer
+        ports:
+        - containerPort: 10000
+      - name: message-service
+        image: mohinigonawala90/customer
+        ports:
+        - containerPort: 8080
+

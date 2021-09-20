@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoy-employment
+  labels:
+    app: envoy-employment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: envoy-employment
+  template:
+    metadata:
+      labels:
+        app: envoy-employment
+    spec:
+      containers:
+      - name: envoy-proxy
+        image: mohinigonawala90/envoy-employment
+        ports:
+        - containerPort: 10000
+      - name: message-service
+        image: mohinigonawala90/employment
+        ports:
+        - containerPort: 8080
+

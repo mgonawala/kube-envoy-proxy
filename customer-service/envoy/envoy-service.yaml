@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-proxy
+  name: envoy-customer-proxy
   labels:
-    app: front-proxy
+    app: envoy-customer 
 spec:
-  type: NodePort
   ports:
   - port: 10000
     protocol: TCP
   selector:
-    app: front-proxy
+    app: envoy-customer
+
 

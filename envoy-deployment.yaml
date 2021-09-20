@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: envoy-proxy
+  name: front-proxy
   labels:
-    app: envoy-proxy
+    app: front-proxy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: envoy-proxy
+      app: front-proxy
   template:
     metadata:
       labels:
-        app: envoy-proxy
+        app: front-proxy
     spec:
       containers:
-      - name: envoy-proxy
-        image: mohinigonawala90/envoy-test
+      - name: front-proxy
+        image: mohinigonawala90/front-proxy
         ports:
         - containerPort: 10000
 
