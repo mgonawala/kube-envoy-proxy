@@ -28,6 +28,14 @@ static_resources:
                   prefix: "/customers"
                 route:
                   cluster: service_customer
+              - match:
+                  prefix: "/employmentDetails"
+                route:
+                  cluster: service_employment
+              - match:
+                  prefix: "/personalDetails"
+                route:
+                  cluster: service_personal
 
   clusters:
   - name: service_customer
@@ -43,3 +51,29 @@ static_resources:
               socket_address:
                 address: 127.0.0.1
                 port_value: 8080
+  - name: service_employment
+    type: LOGICAL_DNS
+    # Comment out the following line to test on v6 networks
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: service_employment
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: employment-details
+                port_value: 10000
+  - name: service_personal
+    type: LOGICAL_DNS
+    # Comment out the following line to test on v6 networks
+    dns_lookup_family: V4_ONLY
+    load_assignment:
+      cluster_name: service_personal
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: personal-details
+                port_value: 10000
